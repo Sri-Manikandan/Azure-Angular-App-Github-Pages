@@ -1,59 +1,51 @@
-# WeatherApp
+# Weather Forecast App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.5.
+## Project Description
 
-## Development server
+A lightweight Angular weather dashboard that consumes a public REST API and
+displays the 5-day forecast in a table. The app is built with a single
+`weather` component and a `WeatherService` that wraps `HttpClient`, and is
+automatically built and deployed to GitHub Pages via a GitHub Actions
+workflow on every push to `main`.
 
-To start a local development server, run:
+Data source (public API):
+`https://sampleapi20260706g3-bvdacte9b0dvhudv.canadacentral-01.azurewebsites.net/Weatherforecast`
 
-```bash
-ng serve
-```
+Features:
+- Fetches the forecast on page load and shows a `Loading...` state while
+  waiting on the API.
+- Shows a friendly error message if the API call fails.
+- Displays Date, Temperature (°C), Temperature (°F), and Summary in a table.
+- Total Forecast Records count.
+- Rows with `temperatureC > 30` are highlighted.
+- A Refresh button reloads the data on demand.
+- Responsive layout — the table collapses into stacked cards on narrow
+  (mobile) viewports.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Angular Version
 
-## Code scaffolding
+Angular CLI 22 (standalone components, no NgModules; Vitest for unit tests).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Installation Steps
 
 ```bash
-ng build
+# Install dependencies
+npm ci
+
+# Run locally (http://localhost:4200)
+npm start
+
+# Run unit tests
+npx ng test --watch=false
+
+# Production build (matches the CI build, base-href required for Pages)
+npx ng build --configuration production --base-href /Azure-Angular-App-Github-Pages/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Deployment URL
 
-## Running unit tests
+https://sri-manikandan.github.io/Azure-Angular-App-Github-Pages/
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Deployment is automatic: every push to `main` triggers
+`.github/workflows/deploy.yml`, which builds the app and publishes
+`dist/weather-app/browser` to GitHub Pages.

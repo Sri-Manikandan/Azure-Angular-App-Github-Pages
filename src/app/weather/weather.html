@@ -1,0 +1,36 @@
+<section class="weather">
+  <div class="header-row">
+    <h1>Weather Forecast</h1>
+    <button type="button" (click)="refresh()" [disabled]="loading()">Refresh</button>
+  </div>
+
+  @if (loading()) {
+    <p class="status">Loading...</p>
+  } @else if (error()) {
+    <p class="status error">{{ error() }}</p>
+  } @else {
+    <p class="count">Total Forecast Records: {{ forecasts().length }}</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Temp (&deg;C)</th>
+            <th>Temp (&deg;F)</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (forecast of forecasts(); track forecast.date) {
+            <tr [class.hot]="forecast.temperatureC > 30">
+              <td data-label="Date">{{ forecast.date }}</td>
+              <td data-label="Temp (°C)">{{ forecast.temperatureC }}</td>
+              <td data-label="Temp (°F)">{{ forecast.temperatureF }}</td>
+              <td data-label="Summary">{{ forecast.summary }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
